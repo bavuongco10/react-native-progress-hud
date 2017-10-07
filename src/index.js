@@ -149,7 +149,7 @@ const ProgressHUD = createReactClass({
             }}
           >
             <View style={styles.inner_spinner} />
-          </Image>
+          </ImageBackground>
         </View>
       </TouchableHighlight>
       /* jshint ignore:end */
