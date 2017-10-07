@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import tweenState from 'react-tween-state';
 import PropTypes from 'prop-types';
-import { Image, TouchableHighlight, View } from 'react-native';
+import { ImageBackground, TouchableHighlight, View } from 'react-native';
 
 const styles = require('./styles');
 const images = require('./images');
@@ -135,7 +135,7 @@ const ProgressHUD = createReactClass({
             },
           ]}
         >
-          <Image
+          <ImageBackground
             style={[
               styles.spinner,
               {
