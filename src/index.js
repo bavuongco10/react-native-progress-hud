@@ -1,82 +1,76 @@
-'use strict';
+import React from 'react';
+import createReactClass from 'create-react-class';
+import tweenState from 'react-tween-state';
+import PropTypes from 'prop-types';
+import { Image, TouchableHighlight, View } from 'react-native';
 
-var React = require('react-native');
-var tweenState = require('react-tween-state');
+const styles = require('./styles');
+const images = require('./images');
 
-var {
-  Image,
-  StyleSheet,
-  TouchableHighlight,
-  View
-} = React;
+const SPIN_DURATION = 1000;
 
-var styles = require('./styles');
-var images = require('./images');
-
-var SPIN_DURATION = 1000;
-
-var ProgressHUDMixin = {
+const ProgressHUDMixin = {
   getInitialState() {
     return {
-      is_hud_visible: false
+      is_hud_visible: false,
     };
   },
 
   showProgressHUD() {
     this.setState({
-      is_hud_visible: true
+      is_hud_visible: true,
     });
   },
 
   dismissProgressHUD() {
     this.setState({
-      is_hud_visible: false
+      is_hud_visible: false,
     });
   },
 
   childContextTypes: {
-    showProgressHUD: React.PropTypes.func,
-    dismissProgressHUD: React.PropTypes.func
+    showProgressHUD: PropTypes.func,
+    dismissProgressHUD: PropTypes.func,
   },
 
   getChildContext() {
     return {
       showProgressHUD: this.showProgressHUD,
-      dismissProgressHUD: this.dismissProgressHUD
+      dismissProgressHUD: this.dismissProgressHUD,
     };
   },
 };
 
-var ProgressHUD = React.createClass({
+const ProgressHUD = createReactClass({
   mixins: [tweenState.Mixin],
 
   contextTypes: {
-    showProgressHUD: React.PropTypes.func.isRequired,
-    dismissProgressHUD: React.PropTypes.func
+    showProgressHUD: PropTypes.func.isRequired,
+    dismissProgressHUD: PropTypes.func,
   },
 
   statics: {
-    Mixin: ProgressHUDMixin
+    Mixin: ProgressHUDMixin,
   },
 
   propTypes: {
-    isDismissible: React.PropTypes.bool,
-    isVisible: React.PropTypes.bool.isRequired,
-    color: React.PropTypes.string,
-    overlayColor: React.PropTypes.string
+    isDismissible: PropTypes.bool,
+    isVisible: PropTypes.bool.isRequired,
+    color: PropTypes.string,
+    overlayColor: PropTypes.string,
   },
 
   getDefaultProps() {
     return {
       isDismissible: false,
       color: '#000',
-      overlayColor: 'rgba(0, 0, 0, 0)'
+      overlayColor: 'rgba(0, 0, 0, 0)',
     };
   },
 
   getInitialState() {
     return {
-      rotate_deg: 0
+      rotate_deg: 0,
     };
   },
 
@@ -98,7 +92,7 @@ var ProgressHUD = React.createClass({
     this.tweenState('rotate_deg', {
       easing: tweenState.easingTypes.linear,
       duration: SPIN_DURATION,
-      endValue: this.state.rotate_deg === 0 ? 360 : this.state.rotate_deg + 360
+      endValue: this.state.rotate_deg === 0 ? 360 : this.state.rotate_deg + 360,
     });
   },
 
@@ -115,47 +109,52 @@ var ProgressHUD = React.createClass({
     }
 
     // Set rotation property value
-    var deg = Math.floor(
-      this.getTweeningValue('rotate_deg')
-    ).toString() + 'deg';
+    const deg = `${Math.floor(
+      this.getTweeningValue('rotate_deg'),
+    ).toString()}deg`;
 
     return (
-      /*jshint ignore:start */
+      /* jshint ignore:start */
       <TouchableHighlight
         key="ProgressHUD"
-        style={[styles.overlay, {
-          backgroundColor: this.props.overlayColor
-        }]}
+        style={[
+          styles.overlay,
+          {
+            backgroundColor: this.props.overlayColor,
+          },
+        ]}
         onPress={this._clickHandler}
         underlayColor={this.props.overlayColor}
         activeOpacity={1}
       >
         <View
-          style={[styles.container, {
-            left: this.getTweeningValue('left')
-          }]}
+          style={[
+            styles.container,
+            {
+              left: this.getTweeningValue('left'),
+            },
+          ]}
         >
           <Image
-            style={[styles.spinner, {
-              backgroundColor: this.props.color,
-              transform: [
-                {rotate: deg}
-              ]
-            }]}
+            style={[
+              styles.spinner,
+              {
+                backgroundColor: this.props.color,
+                transform: [{ rotate: deg }],
+              },
+            ]}
             source={{
-              uri: 'data:image/png;base64,' + images['1x'],
-              isStatic: true
+              uri: `data:image/png;base64,${images['1x']}`,
+              isStatic: true,
             }}
           >
-            <View style={styles.inner_spinner}>
-            </View>
+            <View style={styles.inner_spinner} />
           </Image>
         </View>
       </TouchableHighlight>
-      /*jshint ignore:end */
+      /* jshint ignore:end */
     );
-  }
+  },
 });
-
 
 module.exports = ProgressHUD;

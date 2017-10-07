@@ -1,10 +1,6 @@
-'use strict';
+import { StyleSheet } from 'react-native';
 
-var React = require('react-native');
-
-var { StyleSheet } = React;
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   overlay: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -21,21 +17,21 @@ var styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 16,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   spinner: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 50,
     height: 50,
-    borderRadius: 50 / 2
+    borderRadius: 50 / 2,
   },
   inner_spinner: {
     width: 42,
     height: 42,
     borderRadius: 42 / 2,
-    backgroundColor: '#FFFFFF'
-  }
+    backgroundColor: '#FFFFFF',
+  },
 });
 
 module.exports = styles;
