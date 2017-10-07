@@ -45,7 +45,7 @@ const ProgressHUD = createReactClass({
   mixins: [tweenState.Mixin],
 
   contextTypes: {
-    showProgressHUD: PropTypes.func.isRequired,
+    showProgressHUD: PropTypes.func,
     dismissProgressHUD: PropTypes.func,
   },
 
