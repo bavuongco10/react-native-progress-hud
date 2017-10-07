@@ -24,7 +24,6 @@
   "license": "ISC",
   "dependencies": {
     "react-tween-state": "^0.1.5",
-    "prop-types": "^15.6.0",
     "create-react-class": "^15.6.2"
   },
   "devDependencies": {
